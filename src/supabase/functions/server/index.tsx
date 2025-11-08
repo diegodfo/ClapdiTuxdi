@@ -144,7 +144,7 @@ app.get('/make-server-daca5355/people/:id', async (c) => {
   }
 });
 
-// Get history for a person
+// Get history for a person (received applause)
 app.get('/make-server-daca5355/people/:id/history', async (c) => {
   try {
     const personId = c.req.param('id');
@@ -160,6 +160,31 @@ app.get('/make-server-daca5355/people/:id/history', async (c) => {
   } catch (error) {
     console.error(`Error getting history for person ${c.req.param('id')}: ${error}`);
     return c.json({ error: 'Failed to get history' }, 500);
+  }
+});
+
+// Get history of applause given by a person
+app.get('/make-server-daca5355/people/:id/given-history', async (c) => {
+  try {
+    const personId = c.req.param('id');
+    const person = await kv.get(`person:${personId}`) as any;
+    
+    if (!person) {
+      return c.json({ error: 'Person not found' }, 404);
+    }
+    
+    const allHistory = await kv.getByPrefix('history:');
+    
+    // Filter history where this person gave applause to others
+    const givenHistory = allHistory
+      .filter((h: any) => h?.from === person.name)
+      .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 20); // Last 20 entries
+    
+    return c.json({ history: givenHistory });
+  } catch (error) {
+    console.error(`Error getting given history for person ${c.req.param('id')}: ${error}`);
+    return c.json({ error: 'Failed to get given history' }, 500);
   }
 });
 

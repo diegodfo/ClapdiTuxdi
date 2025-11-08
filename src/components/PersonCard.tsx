@@ -58,7 +58,7 @@ export function PersonCard({
             </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full">
             <button
               onClick={() => onGiveApplause(person.id)}
               disabled={isLoading}

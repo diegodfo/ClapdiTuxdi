@@ -35,7 +35,7 @@ export function TopBar({
 
         <div className="flex items-center justify-between">
           <p className="text-gray-700">
-            👋 Hola, <span>{userName}</span>
+          Hola, <span>{userName}</span>
           </p>
         </div>
       </div>

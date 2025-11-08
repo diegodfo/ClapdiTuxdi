@@ -24,7 +24,7 @@ export function IdentificationModal({ onSave }: IdentificationModalProps) {
           </div>
         </div>
         
-        <h2 className="text-center mb-2 text-gray-900">¡Bienvenido!</h2>
+        <h2 className="text-center mb-2 text-gray-900 text-[32px] font-bold">¡Bienvenido!</h2>
         <p className="text-center text-gray-600 mb-6">Ingresa tu nombre o apodo para comenzar</p>
         
         <form onSubmit={handleSubmit}>
@@ -40,7 +40,7 @@ export function IdentificationModal({ onSave }: IdentificationModalProps) {
           <button
             type="submit"
             disabled={!name.trim()}
-            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all transform hover:scale-105 active:scale-95 text-center"
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:brightness-110 text-center"
           >
             Guardar
           </button>

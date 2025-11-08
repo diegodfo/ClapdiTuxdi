@@ -33,6 +33,28 @@ export default function App() {
 
   const apiUrl = `https://${projectId}.supabase.co/functions/v1/make-server-daca5355`;
 
+  // Set favicon
+  useEffect(() => {
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 282" fill="none">
+        <circle cx="124" cy="141" r="124" fill="white"/>
+        <g>
+          <path d="M248 281.455L248 237.319L103.826 237.319L103.826 281.455L248 281.455Z" fill="#AF2EFF" />
+          <path clip-rule="evenodd" d="M53.7457 225.446H0L79.1031 112.714L0 0H53.7457L132.868 112.714L53.7457 225.446Z" fill="#AF2EFF" fill-rule="evenodd" />
+        </g>
+      </svg>
+    `;
+    const dataUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+    
+    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = dataUrl;
+  }, []);
+
   // Check for saved username on mount
   useEffect(() => {
     const savedName = localStorage.getItem('aplausosapp_username');
@@ -235,9 +257,9 @@ export default function App() {
 
       {currentView === 'home' && (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h2 className="text-gray-900 mb-2">Ranking General</h2>
+              <h2 className="text-gray-900 mb-2 text-[32px] font-bold">Ranking General</h2>
             </div>
             <div className="flex gap-2">
               <button
@@ -285,10 +307,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-gray-900 mb-2">🍕 Pendientes</h2>
-              <p className="text-gray-600">
-                Personas que deben traer comida
-              </p>
+              <h2 className="text-gray-900 mb-2">🍕 Pendientes</h2>            
             </div>
             <div className="flex gap-2">
               <button
