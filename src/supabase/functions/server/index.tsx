@@ -231,14 +231,14 @@ app.post('/make-server-daca5355/applause', async (c) => {
     const historyKey = `history:${Date.now()}-${Math.random()}`;
     await kv.set(historyKey, historyEntry);
     
-    // Send to Make webhook
-    await sendToMakeWebhook({
+    // Send to Make webhook (async, don't wait for response)
+    sendToMakeWebhook({
       type: 'applause',
       person: person,
       givenBy: givenBy,
       celebration: celebration,
       history: historyEntry,
-    });
+    }).catch(err => console.error('Webhook error:', err));
     
     return c.json({ person, celebration });
   } catch (error) {
@@ -281,13 +281,13 @@ app.post('/make-server-daca5355/remove-applause', async (c) => {
       const historyKey = `history:${Date.now()}-${Math.random()}`;
       await kv.set(historyKey, historyEntry);
       
-      // Send to Make webhook
-      await sendToMakeWebhook({
+      // Send to Make webhook (async, don't wait for response)
+      sendToMakeWebhook({
         type: 'remove_applause',
         person: person,
         removedBy: removedBy,
         history: historyEntry,
-      });
+      }).catch(err => console.error('Webhook error:', err));
     }
     
     return c.json({ person });
@@ -310,11 +310,11 @@ app.post('/make-server-daca5355/mark-food-brought/:id', async (c) => {
     person.pendingFood = false;
     await kv.set(`person:${id}`, person);
     
-    // Send to Make webhook
-    await sendToMakeWebhook({
+    // Send to Make webhook (async, don't wait for response)
+    sendToMakeWebhook({
       type: 'food_brought',
       person: person,
-    });
+    }).catch(err => console.error('Webhook error:', err));
     
     return c.json({ person });
   } catch (error) {

@@ -28,7 +28,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState<View>('home');
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
   const [celebrationPerson, setCelebrationPerson] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingPersonIds, setLoadingPersonIds] = useState<Set<string>>(new Set());
   const [isFetchingData, setIsFetchingData] = useState(true);
 
   const apiUrl = `https://${projectId}.supabase.co/functions/v1/make-server-daca5355`;
@@ -111,7 +111,7 @@ export default function App() {
 
   const handleGiveApplause = async (personId: string) => {
     try {
-      setIsLoading(true);
+      setLoadingPersonIds(prev => new Set(prev).add(personId));
       const response = await fetch(`${apiUrl}/applause`, {
         method: 'POST',
         headers: {
@@ -145,13 +145,17 @@ export default function App() {
     } catch (error) {
       console.error('Error giving applause:', error);
     } finally {
-      setIsLoading(false);
+      setLoadingPersonIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(personId);
+        return newSet;
+      });
     }
   };
 
   const handleRemoveApplause = async (personId: string) => {
     try {
-      setIsLoading(true);
+      setLoadingPersonIds(prev => new Set(prev).add(personId));
       const response = await fetch(`${apiUrl}/remove-applause`, {
         method: 'POST',
         headers: {
@@ -180,13 +184,17 @@ export default function App() {
     } catch (error) {
       console.error('Error removing applause:', error);
     } finally {
-      setIsLoading(false);
+      setLoadingPersonIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(personId);
+        return newSet;
+      });
     }
   };
 
   const handleMarkFoodBrought = async (personId: string) => {
     try {
-      setIsLoading(true);
+      setLoadingPersonIds(prev => new Set(prev).add(personId));
       const response = await fetch(`${apiUrl}/mark-food-brought/${personId}`, {
         method: 'POST',
         headers: {
@@ -207,7 +215,11 @@ export default function App() {
     } catch (error) {
       console.error('Error marking food as brought:', error);
     } finally {
-      setIsLoading(false);
+      setLoadingPersonIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(personId);
+        return newSet;
+      });
     }
   };
 
@@ -288,7 +300,7 @@ export default function App() {
                 onGiveApplause={handleGiveApplause}
                 onRemoveApplause={handleRemoveApplause}
                 onViewDetails={handleViewDetails}
-                isLoading={isLoading}
+                isLoading={loadingPersonIds.has(person.id)}
               />
             ))}
           </div>
@@ -305,9 +317,9 @@ export default function App() {
 
       {currentView === 'pending' && (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h2 className="text-gray-900 mb-2">🍕 Pendientes</h2>            
+              <h2 className="text-gray-900 mb-2 text-[32px] font-bold">Pendientes</h2>            
             </div>
             <div className="flex gap-2">
               <button
@@ -332,6 +344,7 @@ export default function App() {
             people={people}
             onMarkFoodBrought={handleMarkFoodBrought}
             onViewDetails={handleViewDetails}
+            loadingPersonIds={loadingPersonIds}
           />
         </div>
       )}
@@ -343,7 +356,7 @@ export default function App() {
           onGiveApplause={handleGiveApplause}
           onRemoveApplause={handleRemoveApplause}
           onMarkFoodBrought={handleMarkFoodBrought}
-          isLoading={isLoading}
+          isLoading={loadingPersonIds.has(selectedPerson.id)}
           apiUrl={apiUrl}
         />
       )}

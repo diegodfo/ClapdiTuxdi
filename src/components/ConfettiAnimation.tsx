@@ -67,7 +67,7 @@ export function ConfettiAnimation({ personName, onClose }: ConfettiAnimationProp
 
         <button
           onClick={onClose}
-          className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 active:scale-95"
+          className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all"
         >
           ¡Genial!
         </button>

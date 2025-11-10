@@ -118,7 +118,7 @@ export function PersonDetail({
                 <button
                   onClick={() => onGiveApplause(person.id)}
                   disabled={isLoading}
-                  className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-600 disabled:from-gray-300 disabled:to-gray-400 transition-all transform hover:scale-105 active:scale-95"
+                  className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-600 disabled:from-gray-300 disabled:to-gray-400 transition-all"
                 >
                   <ThumbsUp className="w-5 h-5" />
                   <span>Agregar aplauso</span>
