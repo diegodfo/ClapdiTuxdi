@@ -6,7 +6,7 @@ import { PersonDetail } from './components/PersonDetail';
 import { PendingView } from './components/PendingView';
 import { ConfettiAnimation } from './components/ConfettiAnimation';
 import { projectId, publicAnonKey } from './utils/supabase/info';
-import { Loader2, Home, Pizza } from 'lucide-react';
+import { Loader2, Home, Pizza, Croissant } from 'lucide-react';
 
 interface Person {
   id: string;
@@ -286,7 +286,7 @@ export default function App() {
                 onClick={() => handleNavigate("pending")}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all bg-gray-100 hover:bg-gray-200 text-gray-700"
               >
-                <Pizza className="w-4 h-4" />
+                <Croissant className="w-4 h-4" />
                 <span className="text-sm">Pendientes</span>
               </button>
             </div>
@@ -334,7 +334,7 @@ export default function App() {
                 onClick={() => handleNavigate("pending")}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all bg-purple-600 text-white"
               >
-                <Pizza className="w-4 h-4" />
+                <Croissant className="w-4 h-4" />
                 <span className="text-sm">Pendientes</span>
               </button>
             </div>

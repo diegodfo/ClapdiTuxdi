@@ -1,4 +1,5 @@
-import { Pizza } from "lucide-react";
+import { Pizza, Croissant } from "lucide-react";
+
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 interface Person {
@@ -51,7 +52,7 @@ export function PendingView({
                       className="w-20 h-20 rounded-full object-cover ring-4 ring-orange-200"
                     />
                     <div className="absolute -top-2 -right-2 text-3xl animate-bounce">
-                      🍕
+                      🥐
                     </div>
                   </div>
 
@@ -77,7 +78,7 @@ export function PendingView({
                     disabled={loadingPersonIds.has(person.id)}
                     className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-2.5 px-4 rounded-xl hover:from-orange-600 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 transition-all"
                   >
-                    <Pizza className="w-4 h-4" />
+                    <Croissant className="w-4 h-4" />
                     <span className="text-sm">Ya trajo</span>
                   </button>
 
